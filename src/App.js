@@ -22,4 +22,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;echo "# b610-learning-platform-client-side-SalehZo-Niloy" >> README.md
