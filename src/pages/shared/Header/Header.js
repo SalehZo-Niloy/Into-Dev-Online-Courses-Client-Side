@@ -1,16 +1,33 @@
 import React from 'react';
-import { useEffect } from 'react'
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { themeChange } from 'theme-change'
 import logo from '../../../images/logo.PNG'
-
-
+import { FaMoon, FaSun } from "react-icons/fa";
+import { useContext } from 'react';
+import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
 const Header = () => {
-    useEffect(() => {
-        themeChange(false)
-        // 👆 false parameter is required for react project
-    }, [])
+    const [theme, setTheme] = useState(true);
+    const { user, logout } = useContext(AuthContext);
+
+    const themeToggle = () => {
+        if (theme) {
+            setTheme(false);
+        }
+        else {
+            setTheme(true);
+        }
+    }
+
+    const handleLogout = () => {
+        logout()
+            .then(() => {
+                console.log('Logged out successfully');
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    }
 
     return (
         <div className="navbar bg-base-100">
@@ -40,8 +57,18 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end justify-evenly">
-                <button data-toggle-theme={'dark' && 'light'} data-act-class="ACTIVECLASS">toggle</button>
-                <Link className='font-semibold text-lg'>Login</Link>
+                <button className='outline-none' onClick={themeToggle} >{
+                    theme ? <FaMoon className='font-semibold text-lg text-gray-500 hover:text-gray-700 mr-4 md:mr-0' /> : <FaSun className='font-semibold text-xl text-amber-400 hover:text-amber-300' />
+                }</button>
+                {
+                    user?.uid ?
+                        <>
+                            <Link onClick={handleLogout} className='font-semibold text-base md:text-lg hover:text-primary-focus'>Log Out</Link>
+                            <img className='rounded-full w-8 md:w-12' src={user?.photoURL} alt="" />
+                        </>
+                        :
+                        <Link to='/login' className='font-semibold text-lg hover:text-primary-focus'>Login</Link>
+                }
             </div>
         </div>
     );
