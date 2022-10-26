@@ -64,7 +64,9 @@ const Header = () => {
                     user?.uid ?
                         <>
                             <Link onClick={handleLogout} className='font-semibold text-base md:text-lg hover:text-primary-focus'>Log Out</Link>
-                            <img className='rounded-full w-8 md:w-12' src={user?.photoURL} alt="" />
+                            <div className="tooltip tooltip-bottom" data-tip={user?.displayName}>
+                                <img className='rounded-full w-8 md:w-12' src={user?.photoURL} alt="" />
+                            </div>
                         </>
                         :
                         <Link to='/login' className='font-semibold text-lg hover:text-primary-focus'>Login</Link>
