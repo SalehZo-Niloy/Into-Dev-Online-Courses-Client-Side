@@ -14,7 +14,7 @@ const CourseDetails = () => {
             <h1 className='text-primary-focus text-2xl md:text-3xl font-semibold py-4'>Welcome to the course "{title}" !!</h1>
             <div className='absolute right-4 top-32 md:top-24'>
                 <Pdf targetRef={ref} filename="Details.pdf">
-                    {({ toPdf }) => <button className='text-2xl text-error-content' onClick={toPdf} title='Download Course Details PDF'><FaFilePdf /></button>}
+                    {({ toPdf }) => <button className='text-2xl text-primary' onClick={toPdf} title='Download Course Details PDF'><FaFilePdf /></button>}
                 </Pdf>
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 py-4 md:py-8 px:8 md:px-20'>
