@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
+import toast from 'react-hot-toast';
 
 const Login = () => {
     const { googleLogin, githubLogin, emailLogin } = useContext(AuthContext);
     const [error, setError] = useState(null);
+    const location = useLocation();
+    const navigate = useNavigate();
+
+
+    const from = location?.state?.from?.pathname || '/'
+    const checkoutLocation = location?.state?.from
+
+    const notify = () => toast.success('Login Successful')
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -18,9 +27,11 @@ const Login = () => {
         emailLogin(email, password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
+                // console.log(user);
                 form.reset();
                 setError(null);
+                notify();
+                navigate(from, { replace: true })
             })
             .catch(error => {
                 console.error(error);
@@ -32,8 +43,10 @@ const Login = () => {
         googleLogin()
             .then(result => {
                 const user = result.user;
-                console.log(user);
+                // console.log(user);
                 setError(null);
+                notify();
+                navigate(from, { replace: true })
             })
             .catch(error => {
                 console.error(error);
@@ -45,11 +58,13 @@ const Login = () => {
         githubLogin()
             .then(result => {
                 const user = result.user;
-                console.log(user);
+                // console.log(user);
                 setError(null);
+                notify();
+                navigate(from, { replace: true })
             })
             .catch(error => {
-                console.error(error.message);
+                console.error(error);
                 setError(error.message);
             })
     }
@@ -75,7 +90,7 @@ const Login = () => {
                             <input type="password" name='password' placeholder="password" className="input input-bordered" required />
                             <label className="label flex flex-col">
                                 <p className='text-left mt-2 text-error font-medium'>{error ? `Login Error: ${error.split('/')[1].split(')')[0]}` : undefined}</p>
-                                <p className='mt-4 font-semibold'>Don't have an account? Please visit<br /><Link to='/register' className='text-primary underline text-lg'>Register</Link></p>
+                                <p className='mt-4 font-semibold'>Don't have an account? Please visit<br /><Link to='/register' state={{ from: checkoutLocation }} replace className='text-primary underline text-lg'>Register</Link></p>
                             </label>
                         </div>
                         <div className="form-control mt-2">

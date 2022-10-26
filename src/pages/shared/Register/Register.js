@@ -1,10 +1,19 @@
 import React from 'react';
+import { useState } from 'react';
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
+import toast from 'react-hot-toast';
 
 const Register = () => {
     const { createUser, profileUpdater } = useContext(AuthContext);
+    const [error, setError] = useState(null);
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const from = location?.state?.from?.pathname || '/'
+
+    const notify = () => toast.success('Registered Successfully, Reload to See Profile Picture')
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -18,15 +27,16 @@ const Register = () => {
         createUser(email, password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
-                handleProfileUpdate(name, photo, form);
+                // console.log(user);
+                handleProfileUpdate(name, photo, form, user);
             })
             .catch(error => {
                 console.error(error);
+                setError(error.message);
             })
     }
 
-    const handleProfileUpdate = (name, photo, form) => {
+    const handleProfileUpdate = (name, photo, form, user) => {
         const profile = {
             displayName: name,
             photoURL: photo
@@ -34,9 +44,13 @@ const Register = () => {
         profileUpdater(profile)
             .then(() => {
                 form.reset();
+                setError(null);
+                notify();
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 console.error(error);
+                setError(error.message);
             })
     }
 
@@ -71,8 +85,8 @@ const Register = () => {
                                 <span className="label-text">Password</span>
                             </label>
                             <input type="password" name='password' placeholder="password" className="input input-bordered" required />
-                            <label className="label">
-                                {/* <a href="#" className="label-text-alt link link-hover">Forgot password?</a> */}
+                            <label className="label flex flex-col">
+                                <p className='text-left mt-2 text-error font-medium'>{error ? `Registering Error: ${error.split('/')[1].split(')')[0]}` : undefined}</p>
                                 <p className='mt-4 font-semibold'>Already have an account? Please visit<br /><Link to='/login' className='text-primary underline text-lg'>Login</Link></p>
                             </label>
                         </div>

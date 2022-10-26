@@ -8,6 +8,7 @@ import Faq from "../pages/Faq/Faq";
 import Home from "../pages/Home/Home";
 import Login from "../pages/shared/Login/Login";
 import Register from "../pages/shared/Register/Register";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -27,7 +28,7 @@ export const router = createBrowserRouter([
                 loader: async ({ params }) => fetch(`http://localhost:5000/courses/${params.id}`)
             },
             {
-                path: '/checkout/:id', element: <CheckOut></CheckOut>,
+                path: '/checkout/:id', element: <PrivateRoute><CheckOut></CheckOut></PrivateRoute>,
                 loader: async ({ params }) => fetch(`http://localhost:5000/courses/${params.id}`)
             },
             {

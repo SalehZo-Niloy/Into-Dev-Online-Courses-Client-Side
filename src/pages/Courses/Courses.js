@@ -5,7 +5,7 @@ import RightNav from './RightNav';
 
 const Courses = () => {
     const courses = useLoaderData();
-    console.log(courses);
+    // console.log(courses);
     return (
         <div className='grid grid-cols-1 md:grid-cols-4 bg-base-300'>
             <Content courses={courses}></Content>

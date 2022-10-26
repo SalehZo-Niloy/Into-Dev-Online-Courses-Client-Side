@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../../images/logo.PNG'
-import { FaMoon, FaSun } from "react-icons/fa";
+import { FaMoon, FaSun, FaUserAlt } from "react-icons/fa";
 import { useContext } from 'react';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
@@ -58,18 +58,23 @@ const Header = () => {
             </div>
             <div className="navbar-end justify-evenly">
                 <button className='outline-none' onClick={themeToggle} >{
-                    theme ? <FaMoon className='font-semibold text-lg text-gray-500 hover:text-gray-700 mr-4 md:mr-0' /> : <FaSun className='font-semibold text-xl text-amber-400 hover:text-amber-300' />
+                    theme ? <FaMoon className='font-semibold text-lg text-gray-500 hover:text-gray-700 mr-4 md:mr-0' /> : <FaSun className='font-semibold text-xl text-amber-400 hover:text-amber-300 mr-4 md:mr-0' />
                 }</button>
                 {
                     user?.uid ?
-                        <>
-                            <Link onClick={handleLogout} className='font-semibold text-base md:text-lg hover:text-primary-focus'>Log Out</Link>
-                            <div className="tooltip tooltip-bottom" data-tip={user?.displayName}>
-                                <img className='rounded-full w-8 md:w-12' src={user?.photoURL} alt="" />
-                            </div>
-                        </>
+                        <Link onClick={handleLogout} className='font-semibold text-base md:text-lg hover:text-primary-focus mr-2 md:mr-0'>Log Out</Link>
                         :
-                        <Link to='/login' className='font-semibold text-lg hover:text-primary-focus'>Login</Link>
+                        <Link to='/login' className='font-semibold text-lg hover:text-primary-focus mr-2 md:mr-0'>Login</Link>
+                }
+                {
+                    user?.photoURL ?
+                        <div className="tooltip tooltip-bottom" data-tip={user?.displayName}>
+                            <img className='rounded-full w-8 md:w-10 h-8 md:h-10' src={user?.photoURL} alt="" />
+                        </div>
+                        :
+                        <div className="tooltip tooltip-bottom" data-tip='Login or Reload for User Name'>
+                            <FaUserAlt className='rounded-full w-6 md:w-7 h-6 md:h-7 bg-base-300' />
+                        </div>
                 }
             </div>
         </div>
