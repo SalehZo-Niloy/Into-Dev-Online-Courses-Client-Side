@@ -11,7 +11,7 @@ const CourseDetails = () => {
     const ref = React.createRef();
     return (
         <div className='bg-base-300 min-h-screen'>
-            <h1 className='text-success-content text-2xl md:text-3xl font-semibold py-4'>Welcome to the course "{title}" !!</h1>
+            <h1 className='text-primary-focus text-2xl md:text-3xl font-semibold py-4'>Welcome to the course "{title}" !!</h1>
             <div className='absolute right-4 top-32 md:top-24'>
                 <Pdf targetRef={ref} filename="Details.pdf">
                     {({ toPdf }) => <button className='text-2xl text-error-content' onClick={toPdf} title='Download Course Details PDF'><FaFilePdf /></button>}
