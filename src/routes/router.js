@@ -21,15 +21,15 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/courses', element: <Courses></Courses>,
-                loader: async () => fetch('http://localhost:5000/courses')
+                loader: async () => fetch('https://assignment-10-server-mu.vercel.app/courses')
             },
             {
                 path: '/courses/:id', element: <CourseDetails></CourseDetails>,
-                loader: async ({ params }) => fetch(`http://localhost:5000/courses/${params.id}`)
+                loader: async ({ params }) => fetch(`https://assignment-10-server-mu.vercel.app/courses/${params.id}`)
             },
             {
                 path: '/checkout/:id', element: <PrivateRoute><CheckOut></CheckOut></PrivateRoute>,
-                loader: async ({ params }) => fetch(`http://localhost:5000/courses/${params.id}`)
+                loader: async ({ params }) => fetch(`https://assignment-10-server-mu.vercel.app/courses/${params.id}`)
             },
             {
                 path: '/faq', element: <Faq></Faq>
@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/register', element: <Register></Register>
-            },
+            }
         ]
     }
 ])
