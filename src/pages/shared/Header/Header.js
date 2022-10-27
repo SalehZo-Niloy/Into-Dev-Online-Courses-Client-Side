@@ -68,11 +68,11 @@ const Header = () => {
                 }
                 {
                     user?.photoURL ?
-                        <div className="tooltip tooltip-bottom" data-tip={user?.displayName}>
+                        <div className="tooltip tooltip-left" data-tip={user?.displayName}>
                             <img className='rounded-full w-7 md:w-10 h-7 md:h-10' src={user?.photoURL} alt="" />
                         </div>
                         :
-                        <div className="tooltip tooltip-bottom" data-tip='Login or Reload for User Name'>
+                        <div className="tooltip tooltip-left" data-tip='Login or Reload for User Name'>
                             <FaUserAlt className='rounded-full w-5 md:w-7 h-5 md:h-7 bg-base-300' />
                         </div>
                 }

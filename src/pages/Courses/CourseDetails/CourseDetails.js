@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link, Navigate, useLoaderData } from 'react-router-dom';
 import Pdf from "react-to-pdf";
 import { FaFilePdf } from "react-icons/fa";
 
@@ -7,6 +7,10 @@ import { FaFilePdf } from "react-icons/fa";
 const CourseDetails = () => {
     const course = useLoaderData();
     const { id, title, image, details, ratings, price } = course;
+
+    if (!title) {
+        return <Navigate to='*'></Navigate>
+    }
 
     const ref = React.createRef();
     return (

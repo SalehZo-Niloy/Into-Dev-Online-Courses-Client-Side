@@ -6,6 +6,7 @@ import CourseDetails from "../pages/Courses/CourseDetails/CourseDetails";
 import Courses from "../pages/Courses/Courses";
 import Faq from "../pages/Faq/Faq";
 import Home from "../pages/Home/Home";
+import PageNotFound from "../pages/PageNotFound/PageNotFound";
 import Login from "../pages/shared/Login/Login";
 import Register from "../pages/shared/Register/Register";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
@@ -42,7 +43,10 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/register', element: <Register></Register>
-            }
+            },
         ]
+    },
+    {
+        path: '*', element: <PageNotFound></PageNotFound>
     }
 ])

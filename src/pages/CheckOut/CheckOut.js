@@ -1,9 +1,14 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Navigate, useLoaderData } from 'react-router-dom';
 
 const CheckOut = () => {
     const course = useLoaderData();
     const { title } = course;
+
+    if (!title) {
+        return <Navigate to='*'></Navigate>
+    }
+
     return (
         <div className='bg-base-300 min-h-screen'>
             <h1 className='text-primary-focus text-2xl md:text-3xl font-semibold py-4'>Check Out</h1>
